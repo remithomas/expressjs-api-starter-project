@@ -1,5 +1,7 @@
 # Express API starter project
 
+[![Build Status](https://travis-ci.org/remithomas/expressjs-api-starter-project.svg?branch=master)](https://travis-ci.org/remithomas/expressjs-api-starter-project)
+
 This is a starter project, using :
 
 - [expressjs](http://expressjs.com)
