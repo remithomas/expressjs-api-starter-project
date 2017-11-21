@@ -1,6 +1,7 @@
 # Express API starter project
 
 [![Build Status](https://travis-ci.org/remithomas/expressjs-api-starter-project.svg?branch=master)](https://travis-ci.org/remithomas/expressjs-api-starter-project)
+[![Coverage Status](https://coveralls.io/repos/github/remithomas/expressjs-api-starter-project/badge.svg?branch=master)](https://coveralls.io/github/remithomas/expressjs-api-starter-project)
 
 This is a starter project, using :
 
