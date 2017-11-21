@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+ - "8"
+env:
+ - NODE_ENV="TEST" SECRET="yolo" TOKEN_EXPIRATION="1h"
+
+script:
+ - npm run lint && npm run test
+
+after_success: 'npm run coverage'
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
