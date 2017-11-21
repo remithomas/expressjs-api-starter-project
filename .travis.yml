@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "node"
+env:
+	- NODE_ENV=TEST
+	- SECRET=yolo
+	- TOKEN_EXPIRATION=1h
