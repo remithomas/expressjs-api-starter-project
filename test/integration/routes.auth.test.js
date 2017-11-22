@@ -34,7 +34,7 @@ describe('Integration - Routes : auth : sign-in', () => {
 
 		chai.request(server)
 			.post('/auth/sign-in')
-			.send({ username, password })
+			.send({username, password})
 			.end((error, res) => {
 				should.exist(error);
 				res.redirects.length.should.eql(0);

@@ -16,4 +16,13 @@ describe('Integration - Routes : index', () => {
 				done();
 			});
 	});
+
+	it('it should show page not found API', (done) => {
+		chai.request(server)
+			.get('/oups')
+			.end((_error, res) => {
+				res.should.have.status(404);
+				done();
+			});
+	});
 });

@@ -1,40 +1,47 @@
 {
-    "env": {
-        "es6": true,
-        "node": true
-    },
-    "extends": [
-			"eslint:recommended",
-			"node"
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"node"
+	],
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"rules": {
+		"import/no-commonjs": 0,
+		"indent": [
+			"error",
+			"tab"
 		],
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "rules": {
-        "no-unused-vars": [
-            "error",
-            {
-                "argsIgnorePattern": "^_"
-            }
-        ],
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-				],
-				"import/no-commonjs": 0,
-				"vars-on-top": 2,
-				"no-undef": 2
-    }
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"no-undef": 2,
+		"no-unused-vars": [
+				"error",
+				{
+						"argsIgnorePattern": "^_"
+				}
+		],
+		"object-curly-spacing": [
+			"error",
+			"never",
+			{
+				"objectsInObjects": true
+			}
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"vars-on-top": 2
+	}
 }

@@ -11,7 +11,7 @@ const findByUsername = function(username) {
 
 const findById = function(userId) {
 	return UserModel.findOne({
-		where: { id: userId },
+		where: {id: userId},
 		attributes: ['id', 'username', 'password', 'firstname', 'lastname']
 	});
 };

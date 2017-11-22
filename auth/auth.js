@@ -1,12 +1,12 @@
 'use strict';
 
 const passport = require('passport');
-const { ExtractJwt, Strategy} = require('passport-jwt');
+const {ExtractJwt, Strategy} = require('passport-jwt');
 const UserService = require('../services/user');
 
 const params = {
 	secretOrKey: process.env.SECRET,
-	jwtFromRequest: ExtractJwt.versionOneCompatibility({ authScheme: 'Bearer' })
+	jwtFromRequest: ExtractJwt.versionOneCompatibility({authScheme: 'Bearer'})
 };
 
 module.exports = () => {
@@ -26,7 +26,7 @@ module.exports = () => {
 			return passport.initialize();
 		},
 		authenticate () {
-			return passport.authenticate('jwt', { session: false });
+			return passport.authenticate('jwt', {session: false});
 		}
 	};
 };
