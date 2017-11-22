@@ -1,6 +1,6 @@
 'use strict';
 
-const { describe, beforeEach, afterEach, it } = require('mocha');
+const {describe, beforeEach, afterEach, it} = require('mocha');
 const chai = require('chai');
 const sinon = require('sinon');
 const bcrypt = require('bcryptjs');

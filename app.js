@@ -14,8 +14,8 @@ const auth = require('./auth/auth')();
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({type: 'application/json'}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(auth.initialize());
 
@@ -35,18 +35,18 @@ app.use('/me', auth.authenticate(), require('./routes/user'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	const err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+	const error = new Error('Not Found');
+	error.status = 404;
+	next(error);
 });
 
 // error handler
 // no stacktraces leaked to user unless in development environment
-app.use((err, req, res, _next) => {
-	res.status(err.status || 500);
+app.use((error, req, res, _next) => {
+	res.status(error.status || 500);
 	res.send({
-		message: err.message,
-		error: (app.get('env') === 'development') ? err : {}
+		message: error.message,
+		error: (app.get('env') === 'development') ? error : {}
 	});
 	return;
 });

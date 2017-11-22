@@ -16,6 +16,14 @@ A _starter project_ is a basic project with some vital features:
 - database access
 - user connexion
 
+## User stories
+
+Current coded stories or next todos
+
+- [X] As an User, I want to sign-in
+- [ ] As an User, I want to sign-out
+- [ ] As an User, I want to be automatically reconnected
+
 ## Requirements
 
 - node8
@@ -53,6 +61,11 @@ List of useful urls
 
 - `/auth/sign-in` sign-in using _username_ and _password_
 - `/me` user profile page
+
+## Contributions
+
+Don't hesitate to submit issues, comments and pull request. 
+This has been developped in TDD.
 
 ## ToDOs / Plans
 

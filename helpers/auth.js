@@ -23,7 +23,7 @@ function comparePass(userPassword, databasePassword) {
 }
 
 function generateToken(data) {
-	return jwt.sign(data, process.env.SECRET, { expiresIn: process.env.TOKEN_EXPIRATION });
+	return jwt.sign(data, process.env.SECRET, {expiresIn: process.env.TOKEN_EXPIRATION});
 }
 
 module.exports = {
