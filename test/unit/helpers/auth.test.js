@@ -24,11 +24,11 @@ describe('Unit - Helpers - Auth', () => {
 	});
 
 	describe('getUser', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(AuthHelper.getUser).to.exist;
 		});
 
-		it('it should return an user', () => {
+		it('should return an user', () => {
 			AuthHelper
 				.getUser('michel@michel.com')
 				.then((user) => {
@@ -36,7 +36,7 @@ describe('Unit - Helpers - Auth', () => {
 				});
 		});
 
-		it('it should reject an user', () => {
+		it('should reject an user', () => {
 			AuthHelper
 				.getUser('fakemichel@michel.com')
 				.catch((errorCode) => {
@@ -56,23 +56,23 @@ describe('Unit - Helpers - Auth', () => {
 			salt = null;
 		});
 
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(AuthHelper.comparePass).to.exist;
 		});
 
-		it('it should valid if right password', (done) => {
+		it('should valid if right password', (done) => {
 			const hash = bcrypt.hashSync('michel', salt);
 			chai.expect(AuthHelper.comparePass('michel', hash)).to.be.true;
 			done();
 		});
 
-		it('it should invalid if wrong password', (done) => {
+		it('should invalid if wrong password', (done) => {
 			const hash = bcrypt.hashSync('michel', salt);
 			chai.expect(AuthHelper.comparePass('fakemichel', hash)).to.be.false;
 			done();
 		});
 
-		it('it should invalid if empty password', (done) => {
+		it('should invalid if empty password', (done) => {
 			const hash = bcrypt.hashSync('michel', salt);
 			chai.expect(AuthHelper.comparePass('', hash)).to.be.false;
 			done();
@@ -80,11 +80,11 @@ describe('Unit - Helpers - Auth', () => {
 	});
 
 	describe('generateToken', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(AuthHelper.generateToken).to.exist;
 		});
 
-		it('it should generate token for userdata', () => {
+		it('should generate token for userdata', () => {
 			chai.expect(AuthHelper.generateToken({
 				id: 1,
 				clientId: 1
@@ -93,17 +93,17 @@ describe('Unit - Helpers - Auth', () => {
 	});
 
 	describe('generateRefreshToken', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(AuthHelper.generateRefreshToken).to.exist;
 		});
 
-		it('it should generate token for userdata', () => {
+		it('should generate token for userdata', () => {
 			chai.expect(AuthHelper.generateRefreshToken()).to.be.string;
 		});
 	});
 
 	describe('validateRefreshToken', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(AuthHelper.validateRefreshToken).to.exist;
 		});
 
@@ -119,13 +119,13 @@ describe('Unit - Helpers - Auth', () => {
 				findByRefreshTokenStub.restore();
 			});
 
-			it('it should validate refresh token', (done) => {
+			it('should validate refresh token', (done) => {
 				const promise = AuthHelper.validateRefreshToken('refreshToken', 1);
 				promise.should.be.fulfilled;
 				promise.should.become(true).and.notify(done);
 			});
 
-			it('it should unvalidate refresh token', (done) => {
+			it('should unvalidate refresh token', (done) => {
 				findByRefreshTokenStub.resolves({get: () => 2});
 
 				const promise = AuthHelper.validateRefreshToken('fake refreshToken', 1);
@@ -146,7 +146,7 @@ describe('Unit - Helpers - Auth', () => {
 				findByRefreshTokenStub.restore();
 			});
 
-			it('it should unvalidate refresh token', (done) => {
+			it('should unvalidate refresh token', (done) => {
 				const promise = AuthHelper.validateRefreshToken('refreshToken', 1);
 
 				promise.should.be.fulfilled;

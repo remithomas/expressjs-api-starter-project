@@ -1,9 +1,9 @@
-# Express API starter project
+# Usefulness API ExpressJs
 
-[![Build Status](https://travis-ci.org/remithomas/expressjs-api-starter-project.svg?branch=master)](https://travis-ci.org/remithomas/expressjs-api-starter-project)
-[![Coverage Status](https://coveralls.io/repos/github/remithomas/expressjs-api-starter-project/badge.svg?branch=master)](https://coveralls.io/github/remithomas/expressjs-api-starter-project)
+[![Build Status](https://travis-ci.org/remithomas/usefulness-api-expressjs.svg?branch=master)](https://travis-ci.org/remithomas/usefulness-api-expressjs)
+[![Coverage Status](https://coveralls.io/repos/github/remithomas/usefulness-api-expressjs/badge.svg?branch=master)](https://coveralls.io/github/remithomas/usefulness-api-expressjs)
 
-This is a starter project, using :
+This is a [Usefulness API](https://github.com/remithomas/usefulness-apis), using :
 
 - [expressjs](http://expressjs.com)
 - [JWT](https://jwt.io) with [passportjs](http://www.passportjs.org) so you can change strategies easily.

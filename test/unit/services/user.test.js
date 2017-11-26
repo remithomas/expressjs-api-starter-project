@@ -20,16 +20,16 @@ describe('Unit - Service - User', () => {
 		sandbox && sandbox.restore();
 	});
 
-	it('it should have the user service', () => {
+	it('should have the user service', () => {
 		chai.expect(UserService).to.exist;
 	});
 
 	describe('findByUsername', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(UserService.findByUsername).to.exist;
 		});
 
-		it('it should return a user', () => {
+		it('should return a user', () => {
 			const findOneSpy = sandbox.spy(UserModel, 'findOne');
 
 			UserService
@@ -44,7 +44,7 @@ describe('Unit - Service - User', () => {
 				});
 		});
 
-		it('it should return null if not found', () => {
+		it('should return null if not found', () => {
 			UserService
 				.findByUsername(-1)
 				.then((user) => chai.expect(user).to.be.null);
@@ -52,11 +52,11 @@ describe('Unit - Service - User', () => {
 	});
 
 	describe('findById', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(UserService.findById).to.exist;
 		});
 
-		it('it should return a user', (done) => {
+		it('should return a user', (done) => {
 			UserService
 				.findById(1)
 				.then((user) => {
@@ -67,7 +67,7 @@ describe('Unit - Service - User', () => {
 				});
 		});
 
-		it('it should return null if not found', () => {
+		it('should return null if not found', () => {
 			UserService
 				.findById(-1)
 				.then((user) => chai.expect(user).to.be.null);
@@ -75,11 +75,11 @@ describe('Unit - Service - User', () => {
 	});
 
 	describe('serializeUser', () => {
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(UserService.serializeUser).to.exist;
 		});
 
-		it('it should serialize user', () => {
+		it('should serialize user', () => {
 			chai.expect(UserService.serializeUser(usersData.user1)).deep.equals({
 				id: 1
 			});
@@ -98,12 +98,12 @@ describe('Unit - Service - User', () => {
 			updateStub.restore();
 		});
 
-		it('it should exist function', (done) => {
+		it('should exist function', (done) => {
 			chai.expect(UserService.setRefreshToken).to.exist;
 			done();
 		});
 
-		it('it should update refreshToken', (done) => {
+		it('should update refreshToken', (done) => {
 			updateStub.resolves({id: 1});
 			UserService.setRefreshToken(1, 'token')
 				.then((user) => {
@@ -116,28 +116,28 @@ describe('Unit - Service - User', () => {
 	});
 
 	describe('findByRefreshToken', () => {
-		let findOneSpy;
+		let findOneStub;
 
 		beforeEach(() => {
-			findOneSpy = sandbox.stub(UserModel, 'findOne');
+			findOneStub = sandbox.stub(UserModel, 'findOne');
 		});
 
 		afterEach(() => {
-			findOneSpy.restore();
+			findOneStub.restore();
 		});
 
-		it('it should exist function', () => {
+		it('should exist function', () => {
 			chai.expect(UserService.findByRefreshToken).to.exist;
 		});
 
-		it('it should return a user', (done) => {
-			findOneSpy.resolves({get: ()=> usersData.user1});
+		it('should return a user', (done) => {
+			findOneStub.resolves({get: ()=> usersData.user1});
 
 			UserService
 				.findByRefreshToken('refreshToken')
 				.then((user) => {
-					chai.expect(findOneSpy.called).to.be.true;
-					chai.expect(findOneSpy.calledOnce).to.be.true;
+					chai.expect(findOneStub.called).to.be.true;
+					chai.expect(findOneStub.calledOnce).to.be.true;
 
 					chai.expect(user.get({
 						plain: true
@@ -146,8 +146,8 @@ describe('Unit - Service - User', () => {
 				});
 		});
 
-		it('it should return null if not found', () => {
-			findOneSpy.resolves(null);
+		it('should return null if not found', () => {
+			findOneStub.resolves(null);
 
 			UserService
 				.findByRefreshToken(-1)
