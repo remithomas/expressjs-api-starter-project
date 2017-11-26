@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const server = require('../../app');
 
 describe('Integration - Routes : index', () => {
-	it('it should access API', (done) => {
+	it('should access API', (done) => {
 		chai.request(server)
 			.get('/')
 			.end((_error, res) => {
@@ -17,7 +17,7 @@ describe('Integration - Routes : index', () => {
 			});
 	});
 
-	it('it should show page not found API', (done) => {
+	it('should show page not found API', (done) => {
 		chai.request(server)
 			.get('/oups')
 			.end((_error, res) => {

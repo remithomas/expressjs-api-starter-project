@@ -27,7 +27,7 @@ describe('Integration - Routes : user', () => {
 			token = null;
 		});
 
-		it('it should access user (me)', (done) => {
+		it('should access user (me)', (done) => {
 			chai.request(server)
 				.get('/me')
 				.set('Authorization', 'Bearer ' + token)
@@ -37,7 +37,7 @@ describe('Integration - Routes : user', () => {
 				});
 		});
 
-		it('it should deny access to user (wrong token)', (done) => {
+		it('should deny access to user (wrong token)', (done) => {
 			chai.request(server)
 				.get('/me')
 				.set('Authorization', 'Bearer FakeTokenFakeTokenFakeTokenFakeToken')
@@ -49,7 +49,7 @@ describe('Integration - Routes : user', () => {
 	});
 
 	describe('Without credential', () => {
-		it('it should deny access to user (me)', (done) => {
+		it('should deny access to user (me)', (done) => {
 			chai.request(server)
 				.get('/me')
 				.end((err, res) => {

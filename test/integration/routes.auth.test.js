@@ -40,7 +40,7 @@ describe('Integration - Routes : Auth ', () => {
 			updateStub.restore();
 		});
 
-		it('it should login an user', (done) => {
+		it('should login an user', (done) => {
 			const username = 'michel@michel.com';
 			const password = 'michel123';
 
@@ -64,7 +64,7 @@ describe('Integration - Routes : Auth ', () => {
 				});
 		});
 
-		it('it should reject login a fake user', (done) => {
+		it('should reject login a fake user', (done) => {
 			const username = 'fakemichel@michel.com';
 			const password = 'michel123';
 
@@ -80,7 +80,7 @@ describe('Integration - Routes : Auth ', () => {
 				});
 		});
 
-		it('it should reject login an empty user', (done) => {
+		it('should reject login an empty user', (done) => {
 			chai.request(server)
 				.post('/auth/sign-in')
 				.end((error, res) => {
@@ -109,7 +109,7 @@ describe('Integration - Routes : Auth ', () => {
 				findByRefreshTokenStub.resolves({get: () => 1});
 			});
 
-			it('it should refresh the auth token', (done) => {
+			it('should refresh the auth token', (done) => {
 				chai.request(server)
 					.post('/auth/token')
 					.send({refreshToken: 'refreshToken'})
@@ -128,7 +128,7 @@ describe('Integration - Routes : Auth ', () => {
 				findByRefreshTokenStub.resolves(null);
 			});
 
-			it('it should refresh the auth token', (done) => {
+			it('should refresh the auth token', (done) => {
 				chai.request(server)
 					.post('/auth/token')
 					.send({refreshToken: 'fakerefreshToken'})
