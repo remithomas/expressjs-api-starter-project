@@ -16,7 +16,28 @@ const findById = function(userId) {
 	});
 };
 
+const findByRefreshToken = function(refreshToken) {
+	return UserModel.findOne({
+		where: {refresh_token: refreshToken},
+		attributes: ['id', 'username', 'password', 'firstname', 'lastname']
+	});
+};
+
+const serializeUser = function({id}) {
+	return {
+		id
+	};
+};
+
+const setRefreshToken = function(userId, refreshToken) {
+	return UserModel.findById(userId)
+		.then((user) => user.update({refresh_token: refreshToken}));
+};
+
 module.exports = {
+	findById,
+	findByRefreshToken,
 	findByUsername,
-	findById
+	serializeUser,
+	setRefreshToken
 };

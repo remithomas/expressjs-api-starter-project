@@ -1,3 +1,3 @@
 module.exports =  {
-	WRONG_CREDENTIAL: 'wrong-credential'
+	WRONG_CREDENTIAL_ERROR_CODE: 'wrong-credential'
 };

@@ -22,7 +22,7 @@ Current coded stories or next todos
 
 - [X] As an User, I want to sign-in
 - [ ] As an User, I want to sign-out
-- [ ] As an User, I want to be automatically reconnected
+- [X] As an User, I want to be automatically reconnected (using refresh Token)
 
 ## Requirements
 
@@ -35,7 +35,8 @@ Current coded stories or next todos
 NODE_ENV="development"
 DATABASE_URL=postgres://localhost:5432/my-app
 SECRET="yolo"
-TOKEN_EXPIRATION="1h"
+TOKEN_EXPIRATION="10m"
+REFRESH_TOKEN_EXPIRATION="2d"
 ```
 
 ## Starting App
@@ -69,6 +70,6 @@ This has been developped in TDD.
 
 ## ToDOs / Plans
 
-- [ ] Add refresh token
+- [ ] Add reject token
 - [ ] Add some seed to generate users (for example)
 - [ ] Docker ready

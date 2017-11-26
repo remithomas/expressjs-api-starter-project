@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
 		username: DataTypes.STRING,
 		password: DataTypes.STRING,
 		lastname: DataTypes.STRING,
-		firstname: DataTypes.STRING
+		firstname: DataTypes.STRING,
+		refresh_token: DataTypes.STRING
 	}, {
 		classMethods: {
 			associate: (_models) => {
