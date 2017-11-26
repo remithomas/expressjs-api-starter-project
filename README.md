@@ -22,7 +22,7 @@ Current coded stories or next todos
 
 - [X] As an User, I want to sign-in
 - [ ] As an User, I want to sign-out
-- [ ] As an User, I want to be automatically reconnected
+- [X] As an User, I want to be automatically reconnected (using refresh Token)
 
 ## Requirements
 
@@ -70,6 +70,6 @@ This has been developped in TDD.
 
 ## ToDOs / Plans
 
-- [ ] Add refresh token
+- [ ] Add reject token
 - [ ] Add some seed to generate users (for example)
 - [ ] Docker ready
