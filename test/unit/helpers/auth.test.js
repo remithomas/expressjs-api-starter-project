@@ -2,14 +2,18 @@
 
 const {describe, beforeEach, afterEach, it} = require('mocha');
 const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const bcrypt = require('bcryptjs');
 
+chai.use(chaiAsPromised);
+
+const AuthHelper = require('../../../helpers/auth');
+const usersData = require('../../util/users-data');
+const UserService = require('../../../services/user');
+
 describe('Unit - Helpers - Auth', () => {
 	let sandbox = null;
-
-	const AuthHelper = require('../../../helpers/auth');
-	const usersData = require('../../util/users-data');
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
@@ -83,8 +87,71 @@ describe('Unit - Helpers - Auth', () => {
 		it('it should generate token for userdata', () => {
 			chai.expect(AuthHelper.generateToken({
 				id: 1,
-				username: 'michel@michel.com'
+				clientId: 1
 			})).to.be.string;
+		});
+	});
+
+	describe('generateRefreshToken', () => {
+		it('it should exist function', () => {
+			chai.expect(AuthHelper.generateRefreshToken).to.exist;
+		});
+
+		it('it should generate token for userdata', () => {
+			chai.expect(AuthHelper.generateRefreshToken()).to.be.string;
+		});
+	});
+
+	describe('validateRefreshToken', () => {
+		it('it should exist function', () => {
+			chai.expect(AuthHelper.validateRefreshToken).to.exist;
+		});
+
+		describe('with existing user', () => {
+			let findByRefreshTokenStub;
+
+			beforeEach(() => {
+				findByRefreshTokenStub = sandbox.stub(UserService, 'findByRefreshToken');
+				findByRefreshTokenStub.resolves({get: () => 1});
+			});
+
+			afterEach(() => {
+				findByRefreshTokenStub.restore();
+			});
+
+			it('it should validate refresh token', (done) => {
+				const promise = AuthHelper.validateRefreshToken('refreshToken', 1);
+				promise.should.be.fulfilled;
+				promise.should.become(true).and.notify(done);
+			});
+
+			it('it should unvalidate refresh token', (done) => {
+				findByRefreshTokenStub.resolves({get: () => 2});
+
+				const promise = AuthHelper.validateRefreshToken('fake refreshToken', 1);
+				promise.should.be.fulfilled;
+				promise.should.become(false).and.notify(done);
+			});
+		});
+
+		describe('without not found user', () => {
+			let findByRefreshTokenStub;
+
+			beforeEach(() => {
+				findByRefreshTokenStub = sandbox.stub(UserService, 'findByRefreshToken');
+				findByRefreshTokenStub.resolves(null);
+			});
+
+			afterEach(() => {
+				findByRefreshTokenStub.restore();
+			});
+
+			it('it should unvalidate refresh token', (done) => {
+				const promise = AuthHelper.validateRefreshToken('refreshToken', 1);
+
+				promise.should.be.fulfilled;
+				promise.should.become(false).and.notify(done);
+			});
 		});
 	});
 });

@@ -10,13 +10,12 @@ const params = {
 };
 
 module.exports = () => {
-	const strategy = new Strategy(params, ((payload, done) => {
-		UserService.findById(payload.id).then((user => {
-			if (user) {
-				return done(null, user);
-			}
-			return done(new Error('User not found'), null);
-		}));
+	const strategy = new Strategy(params, (async (payload, done) => {
+		const user = await UserService.findById(payload.id);
+
+		if (!user) return done(new Error('User not found'), null);
+		const {id, username, firstname, lastname} = user;
+		return done(null, {id, username, firstname, lastname});
 	}));
 
 	passport.use(strategy);

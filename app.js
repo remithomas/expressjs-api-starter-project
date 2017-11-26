@@ -9,6 +9,7 @@ Promise = require('bluebird'); // eslint-disable-line no-global-assign
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const auth = require('./auth/auth')();
 
@@ -18,6 +19,10 @@ app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(auth.initialize());
+
+app.use(morgan('dev', {
+	skip: (_req, _res) => process.env.NODE_ENV !== 'development'
+}));
 
 // Cross domain requests
 const allowCrossDomain = function (req, res, next) {

@@ -8,6 +8,11 @@ chai.use(chaiHttp);
 const server = require('../../app');
 const usersData = require('../util/users-data');
 
+const {
+	OK_HTTP_STATUS_CODE,
+	UNAUTHORIZED_HTTP_STATUS_CODE
+} = require('../../constants/http-status-codes');
+
 describe('Integration - Routes : user', () => {
 
 	describe('With credential', () => {
@@ -27,7 +32,7 @@ describe('Integration - Routes : user', () => {
 				.get('/me')
 				.set('Authorization', 'Bearer ' + token)
 				.end((err, res) => {
-					res.should.have.status(200);
+					res.should.have.status(OK_HTTP_STATUS_CODE);
 					done();
 				});
 		});
@@ -37,7 +42,7 @@ describe('Integration - Routes : user', () => {
 				.get('/me')
 				.set('Authorization', 'Bearer FakeTokenFakeTokenFakeTokenFakeToken')
 				.end((err, res) => {
-					res.should.have.status(401);
+					res.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
 					done();
 				});
 		});
@@ -48,7 +53,7 @@ describe('Integration - Routes : user', () => {
 			chai.request(server)
 				.get('/me')
 				.end((err, res) => {
-					res.should.have.status(401);
+					res.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
 					done();
 				});
 		});

@@ -35,7 +35,8 @@ Current coded stories or next todos
 NODE_ENV="development"
 DATABASE_URL=postgres://localhost:5432/my-app
 SECRET="yolo"
-TOKEN_EXPIRATION="1h"
+TOKEN_EXPIRATION="10m"
+REFRESH_TOKEN_EXPIRATION="2d"
 ```
 
 ## Starting App
