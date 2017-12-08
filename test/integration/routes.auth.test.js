@@ -15,9 +15,10 @@ const {
 } = require('../../constants/http-status-codes');
 
 const AuthHelper = require('../../helpers/auth');
-const UserModel = require('../../models/').user;
 const UserService = require('../../services/user');
 const usersData = require('../util/users-data');
+const UserModel = require('../../models/').user;
+const BlacklistedTokenModel = require('../../models/').blacklistedToken;
 
 describe('Integration - Routes : Auth ', () => {
 	let sandbox = null;
@@ -145,7 +146,7 @@ describe('Integration - Routes : Auth ', () => {
 	});
 
 	describe('reject refresh token', () => {
-		let token = null, unvalidateRefreshTokenForUserStub;
+		let token = null, unvalidateRefreshTokenForUserStub, createTokenStub;
 
 		describe('with a valid token', () => {
 			beforeEach(() => {
@@ -153,14 +154,18 @@ describe('Integration - Routes : Auth ', () => {
 
 				unvalidateRefreshTokenForUserStub = sandbox.stub(AuthHelper, 'unvalidateRefreshTokenForUser');
 				unvalidateRefreshTokenForUserStub.resolves();
+
+				createTokenStub = sandbox.stub(BlacklistedTokenModel, 'create');
+				createTokenStub.resolves({get: () => 1});
 			});
 
 			afterEach(() => {
-				unvalidateRefreshTokenForUserStub.restore();
 				token = null;
+				unvalidateRefreshTokenForUserStub.restore();
+				createTokenStub.restore();
 			});
 
-			it('should reject the auth token for user 1', (done) => {
+			it('should reject the auth token for user 1 (post method)', (done) => {
 				chai.request(server)
 					.post('/auth/reject')
 					.set('Authorization', 'Bearer ' + token)
@@ -168,6 +173,24 @@ describe('Integration - Routes : Auth ', () => {
 						res.should.have.status(OK_HTTP_STATUS_CODE);
 						res.body.should.include.keys('success');
 						res.body.success.should.eql(true);
+
+						chai.expect(createTokenStub.calledOnce).to.be.true;
+
+						chai.expect(unvalidateRefreshTokenForUserStub.calledOnce).to.be.true;
+						done();
+					});
+			});
+
+			it('should reject the auth token for user 1 (get method)', (done) => {
+				chai.request(server)
+					.get('/auth/reject')
+					.set('Authorization', 'Bearer ' + token)
+					.end((err, res) => {
+						res.should.have.status(OK_HTTP_STATUS_CODE);
+						res.body.should.include.keys('success');
+						res.body.success.should.eql(true);
+
+						chai.expect(createTokenStub.calledOnce).to.be.true;
 
 						chai.expect(unvalidateRefreshTokenForUserStub.calledOnce).to.be.true;
 						done();

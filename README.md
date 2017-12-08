@@ -23,7 +23,7 @@ More informations on [Usefulness API](https://github.com/remithomas/usefulness-a
 Current coded stories or next todos
 
 - [X] As an User, I want to sign-in
-- [X] As an User, I want to sign-out
+- [X] As an User, I want to sign-out (and blacklist authToken)
 - [X] As an User, I want to be automatically reconnected (using refresh Token)
 
 ## Requirements
@@ -69,12 +69,13 @@ List of useful urls
 
 ## Contributions
 
-Don't hesitate to submit issues, comments and pull request. 
+Don't hesitate to submit issues, comments and pull request.
 This has been developped in TDD.
 
 ## ToDos / Plans
 
-- [ ] Blacklist tokens
+- [ ] Blacklist refresh tokens
+- [ ] Check if token use is blacklisted (the service is already created)
 - [ ] Register user
 - [ ] Add some seeds (to generate users for example)
 - [ ] Docker ready
