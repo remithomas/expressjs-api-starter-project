@@ -16,6 +16,8 @@ A _starter project_ is a basic project with some vital features:
 - database access
 - user connexion
 
+More informations on [Usefulness API](https://github.com/remithomas/usefulness-apis) project.
+
 ## User stories
 
 Current coded stories or next todos
@@ -61,8 +63,8 @@ yarn run start
 List of useful urls
 
 - `/auth/sign-in` sign-in using _username_ and _password_
-- `/auth/token` refresh auth token
-- `/auth/reject` reject the refresh token for the user
+- `/auth/token` refresh the auth token using the _refresh token_
+- `/auth/reject` reject the _refresh token_ for the user
 - `/me` user profile page
 
 ## Contributions
@@ -74,5 +76,5 @@ This has been developped in TDD.
 
 - [ ] Blacklist tokens
 - [ ] Register user
-- [ ] Add some seed to generate users (for example)
+- [ ] Add some seeds (to generate users for example)
 - [ ] Docker ready
