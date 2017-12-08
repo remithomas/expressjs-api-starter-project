@@ -6,12 +6,7 @@ const {
 	REFRESH_TOKEN
 } = require('../constants/token-types');
 
-const blacklistToken = (token, tokenType) => {
-	return BlacklistedTokenModel.create({
-		token,
-		type: tokenType
-	});
-};
+const blacklistToken = (token, tokenType) =>  BlacklistedTokenModel.create({token, type: tokenType});
 
 const blacklistAuthToken = (token) => blacklistToken(token, AUTH_TOKEN);
 const blacklistRefreshToken = (token) => blacklistToken(token, REFRESH_TOKEN);
