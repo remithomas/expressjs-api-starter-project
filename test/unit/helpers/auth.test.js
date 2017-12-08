@@ -11,6 +11,7 @@ chai.use(chaiAsPromised);
 const AuthHelper = require('../../../helpers/auth');
 const usersData = require('../../util/users-data');
 const UserService = require('../../../services/user');
+const UserModel = require('../../../models/').user;
 
 describe('Unit - Helpers - Auth', () => {
 	let sandbox = null;
@@ -151,6 +152,37 @@ describe('Unit - Helpers - Auth', () => {
 
 				promise.should.be.fulfilled;
 				promise.should.become(false).and.notify(done);
+			});
+		});
+	});
+
+	describe('unvalidateRefreshTokenForUser', () => {
+		it('should exist function', () => {
+			chai.expect(AuthHelper.unvalidateRefreshTokenForUser).to.exist;
+		});
+
+		describe('with existing user', () => {
+			let removeRefreshTokenToUserStub, updateStub;
+
+			beforeEach(() => {
+				removeRefreshTokenToUserStub = sandbox.stub(UserService, 'removeRefreshTokenToUser');
+				removeRefreshTokenToUserStub.resolves();
+
+				updateStub = sandbox.stub(UserModel.prototype, 'update');
+				updateStub.resolves();
+			});
+
+			afterEach(() => {
+				removeRefreshTokenToUserStub.restore();
+				updateStub.restore();
+			});
+
+			it('should unvalidate refresh token', (done) => {
+				AuthHelper.unvalidateRefreshTokenForUser(1)
+					.then(() => {
+						chai.expect(removeRefreshTokenToUserStub.calledOnce).to.be.true;
+						done();
+					});
 			});
 		});
 	});

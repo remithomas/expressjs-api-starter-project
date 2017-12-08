@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../auth/auth')();
 const UserService = require('../services/user');
 const AuthHelper = require('../helpers/auth');
 const {WRONG_CREDENTIAL_ERROR_CODE} = require('../constants/error-codes');
@@ -73,6 +74,13 @@ router.post('/token', async (req, res) => {
 	} catch (_error) {
 		return sendUnauthorizedStatus(res);
 	}
+});
+
+router.post('/reject', auth.authenticate(), async (req, res) => {
+	const userId = req.user.id;
+	AuthHelper
+		.unvalidateRefreshTokenForUser(userId)
+		.then(() => res.status(OK_HTTP_STATUS_CODE).json({success: true}));
 });
 
 module.exports = router;

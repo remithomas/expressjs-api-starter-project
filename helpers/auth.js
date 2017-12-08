@@ -29,10 +29,13 @@ const validateRefreshToken = (refreshToken, userId) => UserService
 	.findByRefreshToken(refreshToken)
 	.then((user) => !!user && user.get('id') === userId);
 
+const unvalidateRefreshTokenForUser = (userId) => UserService.removeRefreshTokenToUser(userId);
+
 module.exports = {
 	getUser,
 	comparePass,
 	generateToken,
 	generateRefreshToken,
-	validateRefreshToken
+	validateRefreshToken,
+	unvalidateRefreshTokenForUser
 };

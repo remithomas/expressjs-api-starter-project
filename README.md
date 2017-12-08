@@ -21,7 +21,7 @@ A _starter project_ is a basic project with some vital features:
 Current coded stories or next todos
 
 - [X] As an User, I want to sign-in
-- [ ] As an User, I want to sign-out
+- [X] As an User, I want to sign-out
 - [X] As an User, I want to be automatically reconnected (using refresh Token)
 
 ## Requirements
@@ -61,6 +61,8 @@ yarn run start
 List of useful urls
 
 - `/auth/sign-in` sign-in using _username_ and _password_
+- `/auth/token` refresh auth token
+- `/auth/reject` reject the refresh token for the user
 - `/me` user profile page
 
 ## Contributions
@@ -68,8 +70,9 @@ List of useful urls
 Don't hesitate to submit issues, comments and pull request. 
 This has been developped in TDD.
 
-## ToDOs / Plans
+## ToDos / Plans
 
-- [ ] Add reject token
+- [ ] Blacklist tokens
+- [ ] Register user
 - [ ] Add some seed to generate users (for example)
 - [ ] Docker ready

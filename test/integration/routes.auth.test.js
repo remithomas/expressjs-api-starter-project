@@ -14,8 +14,10 @@ const {
 	UNAUTHORIZED_HTTP_STATUS_CODE
 } = require('../../constants/http-status-codes');
 
+const AuthHelper = require('../../helpers/auth');
 const UserModel = require('../../models/').user;
 const UserService = require('../../services/user');
+const usersData = require('../util/users-data');
 
 describe('Integration - Routes : Auth ', () => {
 	let sandbox = null;
@@ -64,7 +66,7 @@ describe('Integration - Routes : Auth ', () => {
 				});
 		});
 
-		it('should reject login a fake user', (done) => {
+		it('should reject login to a fake user', (done) => {
 			const username = 'fakemichel@michel.com';
 			const password = 'michel123';
 
@@ -80,7 +82,7 @@ describe('Integration - Routes : Auth ', () => {
 				});
 		});
 
-		it('should reject login an empty user', (done) => {
+		it('should reject login to an empty user', (done) => {
 			chai.request(server)
 				.post('/auth/sign-in')
 				.end((error, res) => {
@@ -136,6 +138,60 @@ describe('Integration - Routes : Auth ', () => {
 						res.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
 						res.body.should.include.keys('success', 'message');
 						res.body.success.should.eql(false);
+						done();
+					});
+			});
+		});
+	});
+
+	describe('reject refresh token', () => {
+		let token = null, unvalidateRefreshTokenForUserStub;
+
+		describe('with a valid token', () => {
+			beforeEach(() => {
+				token = AuthHelper.generateToken(usersData.user1);
+
+				unvalidateRefreshTokenForUserStub = sandbox.stub(AuthHelper, 'unvalidateRefreshTokenForUser');
+				unvalidateRefreshTokenForUserStub.resolves();
+			});
+
+			afterEach(() => {
+				unvalidateRefreshTokenForUserStub.restore();
+				token = null;
+			});
+
+			it('should reject the auth token for user 1', (done) => {
+				chai.request(server)
+					.post('/auth/reject')
+					.set('Authorization', 'Bearer ' + token)
+					.end((err, res) => {
+						res.should.have.status(OK_HTTP_STATUS_CODE);
+						res.body.should.include.keys('success');
+						res.body.success.should.eql(true);
+
+						chai.expect(unvalidateRefreshTokenForUserStub.calledOnce).to.be.true;
+						done();
+					});
+			});
+		});
+
+		describe('with an unvalid token', () => {
+			let token = null;
+
+			beforeEach(() => {
+				token = 'invalid token';
+			});
+
+			afterEach(() => {
+				token = null;
+			});
+
+			it('should reject the auth token for user', (done) => {
+				chai.request(server)
+					.post('/auth/reject')
+					.set('Authorization', 'Bearer ' + token)
+					.end((err, res) => {
+						res.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
 						done();
 					});
 			});

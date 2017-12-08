@@ -14,7 +14,6 @@ const {
 } = require('../../constants/http-status-codes');
 
 describe('Integration - Routes : user', () => {
-
 	describe('With credential', () => {
 		let token = null;
 		const AuthHelper = require('../../helpers/auth');
