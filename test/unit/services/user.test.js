@@ -91,7 +91,7 @@ describe('Unit - Service - User', () => {
 
 		beforeEach(() => {
 			updateStub = sandbox.stub(UserModel.prototype, 'update');
-			updateStub.resolves({});
+			updateStub.resolves({id: 1});
 		});
 
 		afterEach(() => {
@@ -104,7 +104,6 @@ describe('Unit - Service - User', () => {
 		});
 
 		it('should update refreshToken', (done) => {
-			updateStub.resolves({id: 1});
 			UserService.setRefreshToken(1, 'token')
 				.then((user) => {
 					chai.expect(user).to.be.not.null;
@@ -152,6 +151,33 @@ describe('Unit - Service - User', () => {
 			UserService
 				.findByRefreshToken(-1)
 				.then((user) => chai.expect(user).to.be.null);
+		});
+	});
+
+	describe('removeRefreshToken', () => {
+		let updateStub;
+
+		beforeEach(() => {
+			updateStub = sandbox.stub(UserModel.prototype, 'update');
+			updateStub.resolves({id: 1});
+		});
+
+		afterEach(() => {
+			updateStub.restore();
+		});
+
+		it('should exist function', () => {
+			chai.expect(UserService.removeRefreshTokenToUser).to.exist;
+		});
+
+		it('should update refreshToken', (done) => {
+			UserService.removeRefreshTokenToUser(1)
+				.then((user) => {
+					chai.expect(user).to.be.not.null;
+					chai.expect(updateStub.called).to.be.true;
+					chai.expect(updateStub.calledOnce).to.be.true;
+					done();
+				});
 		});
 	});
 });

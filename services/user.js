@@ -34,10 +34,13 @@ const setRefreshToken = function(userId, refreshToken) {
 		.then((user) => user.update({refresh_token: refreshToken}));
 };
 
+const removeRefreshTokenToUser = (userId) => setRefreshToken(userId, null);
+
 module.exports = {
 	findById,
 	findByRefreshToken,
 	findByUsername,
 	serializeUser,
-	setRefreshToken
+	setRefreshToken,
+	removeRefreshTokenToUser
 };
