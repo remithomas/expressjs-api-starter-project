@@ -13,8 +13,9 @@ This is a [Usefulness API](https://github.com/remithomas/usefulness-apis), using
 
 A _starter project_ is a basic project with some vital features:
 
-- database access
-- user connexion
+- Database access
+- User connexion
+- Docker ready
 
 More informations on [Usefulness API](https://github.com/remithomas/usefulness-apis) project.
 
@@ -30,6 +31,7 @@ Current coded stories or next todos
 
 - node8
 - yarn
+- Docker (if using Docker)
 
 ## Environements variables
 
@@ -55,7 +57,21 @@ yarn run start
 ```bash
 yarn install
 node_modules/.bin/sequelize db:migrate
+
+# In production mode
 yarn run start
+
+# In developement mode (this does the migrations)
+yarn run start-dev
+```
+
+### With docker
+
+You should have docker installed on your dev environement.
+
+```bash
+docker-compose build
+docker-compose up
 ```
 
 ## Urls
@@ -78,4 +94,3 @@ This has been developped in TDD.
 - [ ] Check if token use is blacklisted (the service is already created)
 - [ ] Register user
 - [ ] Add some seeds (to generate users for example)
-- [ ] Docker ready

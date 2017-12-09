@@ -1,8 +1,7 @@
 {
-  "name": "express-api",
+  "name": "usefulness-api-expressjs",
   "version": "1.0.0",
   "private": false,
-  "main": "src/index.js",
   "author": "Rémi THOMAS",
   "license": "MIT",
   "keywords": [
