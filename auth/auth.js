@@ -3,6 +3,7 @@
 const passport = require('passport');
 const {ExtractJwt, Strategy} = require('passport-jwt');
 const UserService = require('../services/user');
+const TokenService = require('../services/token');
 
 const params = {
 	secretOrKey: process.env.SECRET,
@@ -24,8 +25,17 @@ module.exports = () => {
 		initialize () {
 			return passport.initialize();
 		},
+
 		authenticate () {
-			return passport.authenticate('jwt', {session: false});
+			return async (req, res, next) => {
+				const {authorization} = req.headers || {};
+				const authToken = TokenService.extractTokenFromBearer(authorization);
+
+				const isBlacklistedToken = await TokenService.isBlacklistedToken(authToken);
+				if (isBlacklistedToken) req.headers.authorization = '';
+
+				return passport.authenticate('jwt', {session: false})(req, res, next);
+			};
 		}
 	};
 };

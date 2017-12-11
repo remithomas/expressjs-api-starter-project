@@ -16,11 +16,14 @@ const isBlacklistedToken = (token) => BlacklistedTokenModel
 		where: {token},
 		attributes: ['id', 'createdAt']
 	})
-	.then((blacklistedToken) => !!blacklistedToken);
+	.then((blacklistedToken) => !!blacklistedToken && !!blacklistedToken.get('id'));
+
+const extractTokenFromBearer = (bearerAuthorization = '') => bearerAuthorization.replace('Bearer ', '');
 
 module.exports = {
 	blacklistToken,
 	blacklistAuthToken,
 	blacklistRefreshToken,
+	extractTokenFromBearer,
 	isBlacklistedToken
 };

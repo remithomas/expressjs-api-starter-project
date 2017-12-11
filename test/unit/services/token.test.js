@@ -100,19 +100,19 @@ describe('Unit - Service - Token', () => {
 			chai.expect(TokenService.isBlacklistedToken).to.exist;
 		});
 
-		describe('with a blacklisted token', () => {
+		describe('with a non-blacklisted token', () => {
 			beforeEach(() => {
 				findOneStub.resolves(null);
 			});
 
 			it('should reject the token', (done) => {
-				const promise = TokenService.isBlacklistedToken('blacklisted token');
+				const promise = TokenService.isBlacklistedToken('non_blacklisted_token');
 				promise.should.be.fulfilled;
 				promise.should.become(false).and.notify(done);
 			});
 		});
 
-		describe('with a non-blacklisted token', () => {
+		describe('with a blacklisted token', () => {
 			beforeEach(() => {
 				findOneStub.resolves({get: () => 1});
 			});
@@ -122,6 +122,19 @@ describe('Unit - Service - Token', () => {
 				promise.should.be.fulfilled;
 				promise.should.become(true).and.notify(done);
 			});
+		});
+	});
+
+	describe('extractTokenFromBearer', () => {
+		it('should exist function', () => {
+			chai.expect(TokenService.extractTokenFromBearer).to.exist;
+		});
+
+		it('should extract token', () => {
+			chai.expect(TokenService.extractTokenFromBearer('Bearer mytoken')).to.deep.equals('mytoken');
+			chai.expect(TokenService.extractTokenFromBearer('Bearer ')).to.deep.equals('');
+			chai.expect(TokenService.extractTokenFromBearer('')).to.deep.equals('');
+			chai.expect(TokenService.extractTokenFromBearer()).to.deep.equals('');
 		});
 	});
 });
