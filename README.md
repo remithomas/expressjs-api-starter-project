@@ -65,7 +65,7 @@ yarn run start
 # In developement mode (this does the migrations)
 yarn run start-dev
 ```
-git checkout 
+
 ### With docker
 
 You should have docker installed on your dev environement.
@@ -73,6 +73,15 @@ You should have docker installed on your dev environement.
 ```bash
 docker-compose build
 docker-compose up
+```
+
+## Code coverage
+
+Using [coveralls.io](https://coveralls.io), create a file named `.coveralls.yml` with your `repo_token`
+
+```yml
+service_name: travis-pro
+repo_token: yourRepoToken
 ```
 
 ## Urls
