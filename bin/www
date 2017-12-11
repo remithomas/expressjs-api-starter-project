@@ -9,15 +9,11 @@ const debug = require('debug')('my-api');
 const http = require('http');
 const models = require('../models');
 
-/**
- * Get port from environment and store in Express.
- */
-
+// Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-/**
-   * Create HTTP server.
-   */
+
+// Create HTTP server.
 const server = http.createServer(app);
 
 models.sequelize.sync().then(() => {
@@ -29,16 +25,13 @@ models.sequelize.sync().then(() => {
 	server.on('listening', onListening);
 });
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-	const port = parseInt(val, 10);
+// Normalize a port into a number, string, or false.
+const normalizePort = (value) => {
+	const port = parseInt(value, 10);
 
 	if (isNaN(port)) {
 		// named pipe
-		return val;
+		return value;
 	}
 
 	if (port >= 0) {
@@ -49,11 +42,8 @@ function normalizePort(val) {
 	return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
+// Event listener for HTTP server "error" event.
+const onError = (error) => {
 	if (error.syscall !== 'listen') {
 		throw error;
 	}
@@ -64,27 +54,24 @@ function onError(error) {
 
 	// handle specific listen errors with friendly messages
 	switch (error.code) {
-	case 'EACCES':
-		console.error(bind + ' requires elevated privileges');
-		process.exit(1);
-		break;
-	case 'EADDRINUSE':
-		console.error(bind + ' is already in use');
-		process.exit(1);
-		break;
-	default:
-		throw error;
+		case 'EACCES':
+			console.error(bind + ' requires elevated privileges');
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error(bind + ' is already in use');
+			process.exit(1);
+			break;
+		default:
+			throw error;
 	}
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-	const addr = server.address();
+// Event listener for HTTP server "listening" event.
+const onListening = () => {
+	const address = server.address();
 	const bind = typeof addr === 'string'
-		? 'pipe ' + addr
-		: 'port ' + addr.port;
+		? 'pipe ' + address
+		: 'port ' + address.port;
 	debug('Listening on ' + bind);
 }

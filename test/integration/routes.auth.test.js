@@ -50,16 +50,16 @@ describe('Integration - Routes : Auth ', () => {
 			chai.request(server)
 				.post('/auth/sign-in')
 				.send({username, password})
-				.end((error, res) => {
+				.end((error, response) => {
 					should.not.exist(error);
-					res.redirects.length.should.eql(0);
-					res.status.should.eql(OK_HTTP_STATUS_CODE);
-					res.type.should.eql('application/json');
+					response.redirects.length.should.eql(0);
+					response.status.should.eql(OK_HTTP_STATUS_CODE);
+					response.type.should.eql('application/json');
 
-					res.body.should.include.keys('success', 'token', 'refreshToken');
-					res.body.success.should.eql(true);
-					should.exist(res.body.token);
-					should.exist(res.body.refreshToken);
+					response.body.should.include.keys('success', 'token', 'refreshToken');
+					response.body.success.should.eql(true);
+					should.exist(response.body.token);
+					should.exist(response.body.refreshToken);
 
 					chai.expect(updateStub.called).to.be.true;
 					chai.expect(updateStub.calledOnce).to.be.true;
@@ -74,11 +74,11 @@ describe('Integration - Routes : Auth ', () => {
 			chai.request(server)
 				.post('/auth/sign-in')
 				.send({username, password})
-				.end((error, res) => {
+				.end((error, response) => {
 					should.exist(error);
-					res.redirects.length.should.eql(0);
-					res.status.should.eql(BAD_REQUEST_HTTP_STATUS_CODE);
-					res.type.should.eql('application/json');
+					response.redirects.length.should.eql(0);
+					response.status.should.eql(BAD_REQUEST_HTTP_STATUS_CODE);
+					response.type.should.eql('application/json');
 					done();
 				});
 		});
@@ -86,11 +86,11 @@ describe('Integration - Routes : Auth ', () => {
 		it('should reject login to an empty user', (done) => {
 			chai.request(server)
 				.post('/auth/sign-in')
-				.end((error, res) => {
+				.end((error, response) => {
 					should.exist(error);
-					res.redirects.length.should.eql(0);
-					res.status.should.eql(BAD_REQUEST_HTTP_STATUS_CODE);
-					res.type.should.eql('application/json');
+					response.redirects.length.should.eql(0);
+					response.status.should.eql(BAD_REQUEST_HTTP_STATUS_CODE);
+					response.type.should.eql('application/json');
 					done();
 				});
 		});
@@ -116,11 +116,11 @@ describe('Integration - Routes : Auth ', () => {
 				chai.request(server)
 					.post('/auth/token')
 					.send({refreshToken: 'refreshToken'})
-					.end((_error, res) => {
-						res.should.have.status(OK_HTTP_STATUS_CODE);
-						res.body.should.include.keys('success', 'token');
-						res.body.success.should.eql(true);
-						should.exist(res.body.token);
+					.end((_error, response) => {
+						response.should.have.status(OK_HTTP_STATUS_CODE);
+						response.body.should.include.keys('success', 'token');
+						response.body.success.should.eql(true);
+						should.exist(response.body.token);
 						done();
 					});
 			});
@@ -135,10 +135,10 @@ describe('Integration - Routes : Auth ', () => {
 				chai.request(server)
 					.post('/auth/token')
 					.send({refreshToken: 'fakerefreshToken'})
-					.end((_error, res) => {
-						res.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
-						res.body.should.include.keys('success', 'message');
-						res.body.success.should.eql(false);
+					.end((_error, response) => {
+						response.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
+						response.body.should.include.keys('success', 'message');
+						response.body.success.should.eql(false);
 						done();
 					});
 			});
@@ -169,10 +169,10 @@ describe('Integration - Routes : Auth ', () => {
 				chai.request(server)
 					.post('/auth/reject')
 					.set('Authorization', 'Bearer ' + token)
-					.end((err, res) => {
-						res.should.have.status(OK_HTTP_STATUS_CODE);
-						res.body.should.include.keys('success');
-						res.body.success.should.eql(true);
+					.end((_error, response) => {
+						response.should.have.status(OK_HTTP_STATUS_CODE);
+						response.body.should.include.keys('success');
+						response.body.success.should.eql(true);
 
 						chai.expect(createTokenStub.calledOnce).to.be.true;
 
@@ -185,10 +185,10 @@ describe('Integration - Routes : Auth ', () => {
 				chai.request(server)
 					.get('/auth/reject')
 					.set('Authorization', 'Bearer ' + token)
-					.end((err, res) => {
-						res.should.have.status(OK_HTTP_STATUS_CODE);
-						res.body.should.include.keys('success');
-						res.body.success.should.eql(true);
+					.end((_error, response) => {
+						response.should.have.status(OK_HTTP_STATUS_CODE);
+						response.body.should.include.keys('success');
+						response.body.success.should.eql(true);
 
 						chai.expect(createTokenStub.calledOnce).to.be.true;
 
@@ -213,8 +213,8 @@ describe('Integration - Routes : Auth ', () => {
 				chai.request(server)
 					.post('/auth/reject')
 					.set('Authorization', 'Bearer ' + token)
-					.end((err, res) => {
-						res.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
+					.end((_error, response) => {
+						response.should.have.status(UNAUTHORIZED_HTTP_STATUS_CODE);
 						done();
 					});
 			});

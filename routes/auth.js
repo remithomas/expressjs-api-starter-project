@@ -28,14 +28,14 @@ const createToken = async (userId) => AuthHelper.generateToken({id: userId});
 
 const createRefreshToken = async () => AuthHelper.generateRefreshToken();
 
-const sendUnauthorizedStatus = (res) => res.status(UNAUTHORIZED_HTTP_STATUS_CODE).json({
+const sendUnauthorizedStatus = (response) => response.status(UNAUTHORIZED_HTTP_STATUS_CODE).json({
 	success: false,
 	message: 'The refresh token doesn\'t match'
 });
 
-router.post('/sign-in', async (req, res) => {
-	const username = req.body.username;
-	const password = req.body.password;
+router.post('/sign-in', async (request, response) => {
+	const username = request.body.username;
+	const password = request.body.password;
 
 	try {
 		const user = await validateCredential(username, password);
@@ -44,52 +44,52 @@ router.post('/sign-in', async (req, res) => {
 
 		await UserService.setRefreshToken(user.id, refreshToken);
 
-		return res.status(OK_HTTP_STATUS_CODE).json({
+		return response.status(OK_HTTP_STATUS_CODE).json({
 			success: true,
 			token,
 			refreshToken
 		});
 	} catch (_error) {
-		res.status(BAD_REQUEST_HTTP_STATUS_CODE).json({
+		response.status(BAD_REQUEST_HTTP_STATUS_CODE).json({
 			success: false,
 			message: 'The username or password don\'t match'
 		});
 	}
 });
 
-router.post('/token', async (req, res) => {
-	const refreshToken = req.body.refreshToken;
+router.post('/token', async (request, response) => {
+	const refreshToken = request.body.refreshToken;
 
-	if (!refreshToken) return res.status(UNAUTHORIZED_HTTP_STATUS_CODE).json({});
+	if (!refreshToken) return response.status(UNAUTHORIZED_HTTP_STATUS_CODE).json({});
 
 	try {
 		const user = await UserService.findByRefreshToken(refreshToken);
 
-		if (!user) return sendUnauthorizedStatus(res);
+		if (!user) return sendUnauthorizedStatus(response);
 
 		const newAuthToken = await AuthHelper.generateToken({id: user.get('id')});
 
-		return res.status(OK_HTTP_STATUS_CODE).json({
+		return response.status(OK_HTTP_STATUS_CODE).json({
 			success: true,
 			token: newAuthToken
 		});
 	} catch (_error) {
-		return sendUnauthorizedStatus(res);
+		return sendUnauthorizedStatus(response);
 	}
 });
 
-router.all('/reject', auth.authenticate(), async (req, res) => {
+router.all('/reject', auth.authenticate(), async (request, response) => {
 	try {
-		const userId = req.user.id;
-		const authToken = TokenService.extractTokenFromBearer(req.get('authorization'));
+		const userId = request.user.id;
+		const authToken = TokenService.extractTokenFromBearer(request.get('authorization'));
 
 		await TokenService.blacklistAuthToken(authToken);
 
 		return AuthHelper
 			.unvalidateRefreshTokenForUser(userId)
-			.then(() => res.status(OK_HTTP_STATUS_CODE).json({success: true}));
+			.then(() => response.status(OK_HTTP_STATUS_CODE).json({success: true}));
 	} catch (_error) {
-		return sendUnauthorizedStatus(res);
+		return sendUnauthorizedStatus(response);
 	}
 });
 

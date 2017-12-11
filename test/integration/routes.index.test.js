@@ -11,17 +11,17 @@ describe('Integration - Routes : index', () => {
 	it('should access API', (done) => {
 		chai.request(server)
 			.get('/')
-			.end((_error, res) => {
-				res.should.have.status(200);
+			.end((_error, response) => {
+				response.should.have.status(200);
 				done();
 			});
 	});
 
 	it('should show page not found API', (done) => {
 		chai.request(server)
-			.get('/oups')
-			.end((_error, res) => {
-				res.should.have.status(404);
+			.get('/this-page-doesnt-exist')
+			.end((_error, response) => {
+				response.should.have.status(404);
 				done();
 			});
 	});
