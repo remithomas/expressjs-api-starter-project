@@ -36,11 +36,11 @@ Current coded stories or next todos
 ## Environements variables
 
 ```bash
-NODE_ENV="development"
+NODE_ENV=development
 DATABASE_URL=postgres://localhost:5432/my-app
-SECRET="yolo"
-TOKEN_EXPIRATION="10m"
-REFRESH_TOKEN_EXPIRATION="2d"
+SECRET=YourSecretToken
+TOKEN_EXPIRATION=10m
+REFRESH_TOKEN_EXPIRATION=2d
 ```
 
 ## Starting App
