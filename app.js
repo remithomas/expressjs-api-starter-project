@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 
 // error handler
 // no stacktraces leaked to user unless in development environment
-app.use((error, req, res, _next) => {
+app.use((error, req, res) => {
 	res.status(error.status || 500);
 	res.send({
 		message: error.message,

@@ -81,7 +81,7 @@ router.post('/token', async (req, res) => {
 router.all('/reject', auth.authenticate(), async (req, res) => {
 	try {
 		const userId = req.user.id;
-		const authToken = req.get('authorization').replace('Bearer ', '');
+		const authToken = TokenService.extractTokenFromBearer(req.get('authorization'));
 
 		await TokenService.blacklistAuthToken(authToken);
 

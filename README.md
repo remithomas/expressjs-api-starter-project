@@ -16,6 +16,7 @@ A _starter project_ is a basic project with some vital features:
 - Database access
 - User connexion
 - Docker ready
+- Set development environement (travis, code-coverage)
 
 More informations on [Usefulness API](https://github.com/remithomas/usefulness-apis) project.
 
@@ -91,6 +92,5 @@ This has been developped in TDD.
 ## ToDos / Plans
 
 - [ ] Blacklist refresh tokens
-- [ ] Check if token use is blacklisted (the service is already created)
 - [ ] Register user
 - [ ] Add some seeds (to generate users for example)
