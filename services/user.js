@@ -2,37 +2,29 @@
 
 const UserModel = require('../models/').user;
 
-const findByUsername = function(username) {
-	return UserModel.findOne({
+const findByUsername = (username) => UserModel
+	.findOne({
 		where: {username},
 		attributes: ['id', 'username', 'password', 'firstname', 'lastname']
 	});
-};
 
-const findById = function(userId) {
-	return UserModel.findOne({
+const findById = (userId) => UserModel
+	.findOne({
 		where: {id: userId},
 		attributes: ['id', 'username', 'password', 'firstname', 'lastname']
 	});
-};
 
-const findByRefreshToken = function(refreshToken) {
-	return UserModel.findOne({
+const findByRefreshToken = (refreshToken) => UserModel
+	.findOne({
 		where: {refresh_token: refreshToken},
 		attributes: ['id', 'username', 'password', 'firstname', 'lastname']
 	});
-};
 
-const serializeUser = function({id}) {
-	return {
-		id
-	};
-};
+const serializeUser = ({id}) => ({id});
 
-const setRefreshToken = function(userId, refreshToken) {
-	return UserModel.findById(userId)
-		.then((user) => user.update({refresh_token: refreshToken}));
-};
+const setRefreshToken = (userId, refreshToken) => UserModel
+	.findById(userId)
+	.then((user) => user.update({refresh_token: refreshToken}));
 
 const removeRefreshTokenToUser = (userId) => setRefreshToken(userId, null);
 

@@ -46,14 +46,14 @@ REFRESH_TOKEN_EXPIRATION=2d
 
 ## Starting App
 
-### Without Migrations**
+### Without Migrations
 
 ```bash
 yarn install
 yarn run start
 ```
 
-### With Migrations**
+### With Migrations
 
 ```bash
 yarn install
@@ -65,7 +65,7 @@ yarn run start
 # In developement mode (this does the migrations)
 yarn run start-dev
 ```
-
+git checkout 
 ### With docker
 
 You should have docker installed on your dev environement.

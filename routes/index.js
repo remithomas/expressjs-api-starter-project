@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	res.end('be early, be ready !');
+router.get('/', (_request, response) => {
+	response.end('welcome');
 });
 
 module.exports = router;

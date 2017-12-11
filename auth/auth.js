@@ -27,14 +27,14 @@ module.exports = () => {
 		},
 
 		authenticate () {
-			return async (req, res, next) => {
-				const {authorization} = req.headers || {};
+			return async (request, response, next) => {
+				const {authorization} = request.headers || {};
 				const authToken = TokenService.extractTokenFromBearer(authorization);
 
 				const isBlacklistedToken = await TokenService.isBlacklistedToken(authToken);
-				if (isBlacklistedToken) req.headers.authorization = '';
+				if (isBlacklistedToken) request.headers.authorization = '';
 
-				return passport.authenticate('jwt', {session: false})(req, res, next);
+				return passport.authenticate('jwt', {session: false})(request, response, next);
 			};
 		}
 	};
