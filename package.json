@@ -1,9 +1,13 @@
 {
   "name": "usefulness-api-expressjs",
   "version": "1.0.0",
-  "private": false,
+  "private": true,
   "author": "Rémi THOMAS",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/remithomas/usefulness-api-expressjs.git"
+  },
   "keywords": [
     "express",
     "node",
