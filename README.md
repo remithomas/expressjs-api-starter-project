@@ -31,7 +31,7 @@ Current coded stories or next todos
 ## Requirements
 
 - node8
-- yarn
+- yarn (or npm)
 - Docker (if using Docker)
 
 ## Environements variables
@@ -49,14 +49,24 @@ REFRESH_TOKEN_EXPIRATION=2d
 ### Without Migrations
 
 ```bash
+# Yarn install
 yarn install
 yarn run start
+
+# Or using Npm :
+npm install
+npm start
 ```
 
 ### With Migrations
 
 ```bash
+# Yarn install
 yarn install
+# Or using Npm :
+npm install
+
+# Database migration
 node_modules/.bin/sequelize db:migrate
 
 # In production mode
