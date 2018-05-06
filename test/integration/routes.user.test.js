@@ -20,7 +20,7 @@ describe('Integration - Routes : user', () => {
 	let sandbox = null;
 
 	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+		sandbox = sinon.createSandbox();
 	});
 
 	afterEach(() => {
