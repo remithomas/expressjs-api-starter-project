@@ -24,7 +24,7 @@ describe('Integration - Routes : Auth ', () => {
 	let sandbox = null;
 
 	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+		sandbox = sinon.createSandbox();
 	});
 
 	afterEach(() => {
@@ -74,8 +74,7 @@ describe('Integration - Routes : Auth ', () => {
 			chai.request(server)
 				.post('/auth/sign-in')
 				.send({username, password})
-				.end((error, response) => {
-					should.exist(error);
+				.end((_error, response) => {
 					response.redirects.length.should.eql(0);
 					response.status.should.eql(BAD_REQUEST_HTTP_STATUS_CODE);
 					response.type.should.eql('application/json');
@@ -86,8 +85,7 @@ describe('Integration - Routes : Auth ', () => {
 		it('should reject login to an empty user', (done) => {
 			chai.request(server)
 				.post('/auth/sign-in')
-				.end((error, response) => {
-					should.exist(error);
+				.end((_error, response) => {
 					response.redirects.length.should.eql(0);
 					response.status.should.eql(BAD_REQUEST_HTTP_STATUS_CODE);
 					response.type.should.eql('application/json');

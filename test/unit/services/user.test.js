@@ -13,7 +13,7 @@ describe('Unit - Service - User', () => {
 	let sandbox = null;
 
 	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+		sandbox = sinon.createSandbox();
 	});
 
 	afterEach(() => {

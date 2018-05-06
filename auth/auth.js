@@ -6,7 +6,7 @@ const UserService = require('../services/user');
 const TokenService = require('../services/token');
 
 const params = {
-	secretOrKey: process.env.SECRET,
+	secretOrKey: process.env.SECRET || 'YourSecretToken',
 	jwtFromRequest: ExtractJwt.versionOneCompatibility({authScheme: 'Bearer'})
 };
 
